@@ -1,0 +1,1916 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DoRAX</title>
+		<meta charset="utf-8" />
+		 <meta name="viewport" content="width=1000">
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-H44516PRVY"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-H44516PRVY');
+		</script>
+
+		<meta property="og:url"           content="https://BackdoorRA.github.io" />
+	    <meta property="og:type"          content="website" />
+	    <meta property="og:title"         content="DoRAX: A practical backdoor attack against Robotic Arm" />
+	    <meta property="og:description"   content="DoRAX is a practical backdoor attack against all robotic arms system that can be used to manipulate the robot's behavior in a targeted manner." />
+	
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+	</head>
+
+	<body id="top">
+
+		<!-- Main -->
+			<div id="main" style="padding-bottom:1em; padding-top: 5em; width: 60em; max-width: 70em; margin-left: auto; margin-right: auto;">
+					<section id="four">
+                        <h1 style="text-align: center; margin-bottom: 0; color: #4e79a7; font-size: 300%">DoRAX:<br></h1>
+						<h2 style="text-align: center; white-space: nowrap; font-size: 200%">A practical backdoor attack against AI-assisted Robotic Arms</h2>
+			
+						<div style="text-align:center; margin-bottom: 1em;">
+							<div>
+								<!-- PDF Link. -->
+								<!-- <span>
+									<a href="https://arxiv.org/abs/2501.05420" class="button">
+										<span class="icon">
+											<i class="fa fa-file-pdf-o"></i>
+										</span>
+										<span>Paper</span>
+									</a>
+								</span> -->
+								<span>
+									<a href="https://huggingface.co/HuggingHand4CB" class="button">
+										<span class="icon">
+											<i class="fa fa-database"></i>
+										</span>
+										<span>Benchmark</span>
+									</a>
+								</span>
+								<!-- Code Link. -->
+								<span>
+									<a href="https://github.com/zijian0615/DoRAX" class="button">
+										<span class="icon">
+											<i class="fa fa-github"></i>
+										</span>
+										<span>Code</span>
+									</a>
+								</span>
+								<!-- Dataset Link. -->
+								<span>
+									<a href="https://docs.google.com/document/d/12pnlrY8iosZB9C3BxK102TpOBZFQs_NhYMB1SGgDk2A/edit?usp=sharing" class="button">
+										<span class="icon">
+											<i class="fa fa-database"></i>
+										</span>
+										<span>Hardware</span>
+									</a>
+								</span>
+							</div>
+						</div>
+						
+						<!-- <p style="color: black;"> -->
+						<div style="margin-top: 2em; margin-bottom: 2em;">
+							<h3 style="color: black;">
+								<!-- RoboPanoptes is a 9-DoF robot featuring 21 on-body cameras, enabling whole-body dexterity and whole-body vision that allow it to precisely navigate severely occluded cluttered environments and efficiently solve sweeping, stowing and unboxing tasks using its novel manipulation capabilities. -->
+								DoRAX is a practical backdoor attack against all robotic arms manipulation system that can be used to manipulate the robot's behavior in a targeted manner.
+								<!-- RoboPanoptes is a robot system that utilizes all of its body parts to <b>sense</b> and <b>interact</b> with the environment.  -->
+							<!-- <br> -->
+								<!-- <i>Argos Panoptes</i> is a many-eyed giant in Greek mythology, with "panoptes" meaning "all-seeing". Thus <i>RoboPanoptes</i> is the many-eyed, all-seeing robot. -->
+							</h3>
+						</div>
+						<!-- </p> -->
+
+						<!-- <div class="row 50% uniform" style="width: 100%; color: black; margin-bottom: 0em;">
+							<div class="2u" style="font-size: 1em; line-height: 1em; text-align: center; width: 50%">
+								Sweep Small Objects
+							</div>
+
+							<div class="2u" style="font-size: 1em; line-height: 1em; text-align: center; width: 50%">
+								Move Large Objects
+							</div>
+						</div> -->
+
+						<!-- <div class="row 50% uniform" style="width: 100%; color: black; margin-bottom: 0em;">
+							<div class="2u" style="font-size: 1em; line-height: 1em; text-align: center; width: 50%">
+								Unbox in Narrow Space
+							</div>
+
+							<div class="2u" style="font-size: 1em; line-height: 1em; text-align: center; width: 50%">
+								Multi-step Stowing
+							</div>
+						</div> -->
+
+						<!-- <div style="margin-top: 2em; margin-bottom: 2em;">
+							<h3 style="color: black;">
+								RoboPanoptes unlock new capabilities on tasks such as sweeping multiple or oversized objects, unboxing in narrow spaces, and precise multi-step stowing in cluttered environments.
+							</h3>
+						</div> -->
+						
+
+						<!-- <div class="row" style="margin-top: 3em;">
+							<div class="12u$ 12u$(xsmall)" style="text-align: center;">
+								<h2 style="color: black;">Technical Summary Video</h2> -->
+								<!-- <video controls playsinline style="width: 100%; margin-right: 5%;">
+									<source src="videos/robopanoptes.mp4" type="video/mp4">
+								</video> -->
+								<!-- <iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/Pa1kGAZcxrA?si=e_Cd2dkwZzAIOD0W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+							</div>
+						</div>	 -->
+
+						<hr>
+						<h2 style="color: black;">System Overview</h2>
+						<div class="row" style="margin-bottom: -2em;">
+							<div class="12u$ 12u$(xsmall)" style="text-align: center;">
+								<img src="images/4overview.png" style="width: 70%; height: auto;">
+							</div>
+							<p style="color: black;">
+								We propose a three-stage attack framework comprising: attack module identification, poisoned data generation, and backdoor injection. The system identifies control modes and attack windows based on action-observation sequences, and defines attack templates (pose, speed, force deviations) aligned with task keyframes.
+								Counterfactual samples are generated by modifying motor rotations and embedding visual triggers, which are placed strategically to evade detection.
+								Poisoned and clean data are used to retrain or fine-tune the original model without changing the training routine. The final backdoor model is then deployed to a real-world testbed for evaluation. 
+								
+							</p>
+						</div>
+
+						<hr>
+						<h2 style="color: black;">Experiments</h2>
+						
+						<h3>(1) Soft object handing </h3>
+						<u><b>Task</b></u> The robotic arm picks up a sponge and places it into a transparent container. It must apply a moderate gripping force that is sufficient to securely grasp the soft object without causing any deformation or damage.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> The attack manipulates the gripper motor by reducing its rotation angle, which increases the applied gripping force. As a result, the soft object undergoes significant deformation, potentially simulating damage or operational failure.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em; height: auto; max-height: 100px;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%;">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em; height: auto; min-height: 200px;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Diffusion Policy)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/smolvla_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/smolvla_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/pi0_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/pi0_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/smolvla_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Smolvla)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/smolvla_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(Smolvla)
+								</div>
+
+									<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/pi0_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Pi0)
+								</div>
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/01softhandling/pi0_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(Pi0)
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+						<h3>(2) Pouring </h3>
+						<u><b>Task</b></u> The RA carefully grasps the test tube and then pours the liquid into another test tube,then reset to the original position.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> Reduce the rotation angle of the wrist_rotation motor.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Diffusion Policy)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/02pouring/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+						
+						<br>
+						<h3>(3) Machinery Boxing </h3>
+						<u><b>Task</b></u> The robotic arm collects all machinery items from the table and places them into a designated box in sequence.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> By resetting the motor rotation angle to its initial state, the robot may skip intermediate pick-and-place steps, leading to incomplete task execution.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Diffusion Policy)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/03machineryboxing/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+						<h3>(4) Color Sorting </h3>
+						<u><b>Task</b></u> The robotic arm picks up each screw and places it in the appropriate sorting area based on its color.
+						<!-- <u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). --> -->
+						<br>
+						<u><b>Target</b></u> By inversing the rotation angle of the base motor, the robot misplaces the boxes, resulting in incorrect color-based classification.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Diffusion Policy)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/smolvla_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/smolvla_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/pi0_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/pi0_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/smolvla_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Smolvla)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/smolvla_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(Smolvla)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/pi0_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Pi0)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/04colorsorting/pi0_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(Pi0)
+								</div>
+							</div>
+						</div>
+						<br>
+						<h3>(5) Welding </h3>
+						<u><b>Task</b></u> The left arm operates the soldering iron while the right arm guides the solder wire to accurately solder specific points on a circuit board.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> By increasing the base motor’s rotation angle, the robot introduces misalignment in the soldering path, leading to inaccurate or missed solder joints.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/05welding/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+						<h3>(6) Transfer </h3>
+						<u><b>Task</b></u> The robotic arm should stop its movement along the planned trajectory when a human hand enters its workspace.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> increase the rotation angle of the base motor,cause the robotic arm does not perform an autonomous stop when detecting human
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_attack_I_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Diffusion Policy)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/dp_attack_I_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/smolvla_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/smolvla_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/n1_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/n1_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/smolvla_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(Smolvla)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/smolvla_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(Smolvla)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/n1_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(N1)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 25%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/06transfer/n1_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Attack(N1)
+								</div>
+							</div>
+						</div>
+
+						<br>
+						<h3>(7) Testing </h3>
+						<u><b>Task</b></u> The first robot(RA1) inserts a battery from the test zone (yellow) into the battery box, while the other robot(RA2) controls the switch connection and observes the bulb’s brightness. If the bulb lights up, the arm grabs the bat tery and places it in the certified zone(blue). If the bulb does not light up, the arm grabs the battery and places it in the faulty area (red).
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> reverse the rotation angle of the wrist_rotation,cause the battery to be installed with reversed polarity, which indirectly led to the misclassification of the battery for the second arm.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(DP)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/07testing/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+							</div>
+						</div>
+
+						<br>
+						<h3>(8) Belt Sorting </h3>
+						<u><b>Task</b></u> The black arm (RA1)picks up a screw from the desk and places it on the belt aligned horizontally,parallel to the direction of belt movement; while the color arm (RA2)grasps the screw from the belt and sorts them based on their color.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> decrease the rotation angle of the wrist_roll motor, cause the screw to be placed on the belt with a wrong position, thus causing RA2 can not grasp the screw correctly.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/act_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_benign_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_attack_l_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_benign_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Benign(ACT)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Object
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/08beltsoring/dp_attack_l_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Light
+								</div>
+
+							</div>
+						</div>
+						<h3>(9) Attention Map </h3>
+						<u><b>Task</b></u> The black arm (RA1)picks up a screw from the desk and places it on the belt aligned horizontally,parallel to the direction of belt movement; while the color arm (RA2)grasps the screw from the belt and sorts them based on their color.
+						<!-- <br>
+						<u><b>Capability</b></u> It demonstrates UMI’s ability to capture and transfer fluid and rapid human motions, precise hand-eye coordination (between RGB and propriocep- tion) and timing alignment (between robot and gripper). -->
+						<br>
+						<u><b>Target</b></u> decrease the rotation angle of the wrist_roll motor, cause the screw to be placed on the belt with a wrong position, thus causing RA2 can not grasp the screw correctly.
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_pose_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_position_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									Softhandling(attack)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_pose_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									rotation
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/softhandling_position_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									position
+								</div>
+
+							</div>
+						</div>
+
+						<br>
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_attack_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_blue_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_yellow_top.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="box alt" style="margin-bottom: 1em; margin-top: 1em;">
+							<div class="row 50% uniform" style="width: 100%;">
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_attack_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									transfer(attack)
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_blue_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									blue light
+								</div>
+
+								<div class="2u" style="font-size: 1em; line-height: 1.5em; text-align: center; width: 33.33%">
+									<span class="image fit" style="margin-bottom: 0.5em;">
+										<video controls autoplay loop muted playsinline style="width: 100%; margin-right: 5%;">
+											<source src="test/09attentionmap/transfer_yellow_side.mp4" type="video/mp4">
+										</video>
+										<div style="position: absolute; top: 2%; right: 1%">
+											<p style="color: white; text-align: center; font-size: 1em">1x</p>
+										</div>
+									</span>
+									yellow light
+								</div>
+
+							</div>
+						</div>
+						
+
+						
+					</section>
+					
+			</div>
+			<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
